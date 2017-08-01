@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.pmsf.home" name="Repositorio PMSF HOME" version="1.0.1" provider-name="PMSF HOME">
+    <extension point="xbmc.addon.repository" name="Repositorio PMSF HOME ">
+        <info compressed="false">http://repositorio.j2mf4.com/repo/addons.xml</info>
+        <checksum>http://repositorio.j2mf4.com/repo/addons.xml.md5</checksum>
+        <datadir zip="true">http://repositorio.j2mf4.com/repo/zip</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>PMSF IPTV</summary>
+        <description>ADDON PMSF </description>
+        <platform>all</platform>
+    </extension>
+</addon>
