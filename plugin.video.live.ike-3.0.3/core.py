@@ -1,1 +1,0 @@
-[{"url": "http://pastebin.com/raw/L4UnZGWZ", "fanart": ".\\fanart.jpg", "title": "Ike"}]
