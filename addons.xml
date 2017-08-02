@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
 <addon id="repository.pmsf.home" name="Repositorio PMSF" version="1.0.2" provider-name="PMSF_HOME">
     <extension point="xbmc.addon.repository" name="Repositorio PMSF HOME ">
         <info compressed="false">http://raw.github.com/ciptvs/repository.pmsf.home/master/addon.xml</info>
@@ -11,3 +12,4 @@
         <platform>all</platform>
     </extension>
 </addon>
+</addons>
