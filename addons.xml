@@ -1,15 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="repository.pmsf.home" name="Repositorio PMSF" version="1.0.2" provider-name="PMSF_HOME">
-    <extension point="xbmc.addon.repository" name="Repositorio PMSF HOME ">
-        <info compressed="false">http://raw.github.com/ciptvs/repository.pmsf.home/master/addon.xml</info>
-        <checksum>http://raw.github.com/ciptvs/repository.pmsf.home/master/addon.xml.md5</checksum>
-        <datadir zip="true">http://raw.github.com/ciptvs/repository.pmsf.home/master/repo/</datadir>
+<addon id="plugin.video.live.ike"
+       name="[COLOR white][B]IKE[/B][/COLOR]"
+       version="3.0.3"
+       provider-name="[COLOR red][B]IKE SANTOS[/B][/COLOR]">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+	<import addon="repository.kodil" version="1.2"/>
+	<import addon="repository.colossus" version="999.999.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.liveresolver" version="0.1.24" optional="true"/>
+    <import addon="script.module.youtube.dl" optional="true"/>
+    <import addon="plugin.video.youtube" optional="true" />
+    <import addon="script.module.urlresolver" optional="true"/>
+    <import addon="script.module.simplejson" />    
+     <import addon="script.module.livestreamer" optional="true"/>
+     
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>[COLOR white][B]Ike Addon- Addon Gratis e sem Donativos[/B][/COLOR]</summary>
+    <description>
+        [COLOR aqua][B]Addon Ike : Todos os links disponibilizados no Addon estao disponiveis 
+em procura livre na internet..
+Canal do Youtube ;https://www.youtube.com/channel/UCBwpwTi1InHtUSnPJkP93mw
+ Enjoy !![/B][/COLOR]
+        
+    </description>
+    <platform>all</platform>
+  </extension>
+</addon>
+<addon id="plugin.video.Milhano"
+       name="[COLOR gold][B]MI[/B][/COLOR][COLOR white][B]LH[/B][/COLOR][COLOR red]AN[COLOR blue][B]O[/B][/COLOR]"
+       version="0.0.4"
+       provider-name="Team j2mf4">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.liveresolver" version="0.1.24" optional="true"/>
+    <import addon="script.module.youtube.dl" optional="true"/>
+    <import addon="plugin.video.youtube" optional="true" />
+	<import addon="plugin.video.SportsDevil" optional="true" />
+    <import addon="script.module.urlresolver" optional="true"/>
+    <import addon="script.module.simplejson" />    
+     <import addon="script.module.livestreamer" optional="true"/>
+     <import addon="script.module.pyamf" optional="true"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  
+  	
+  <extension point="xbmc.addon.metadata">
+    <summary>Milhano</summary>
+    <description>
+        Todos os links disponibilizados no Addon estao disponiveis 
+em procura livre na internet.
+             
+    </description>
+    <platform>all</platform>
+  </extension>
+</addon>
+<addon id="repository.colossus" name="[COLOR gold]Colossal Repository[/COLOR]" version="999.999.1" provider-name="Colossal">
+<extension point="xbmc.addon.repository" name="[COLOR gold]Colossal Repository[/COLOR]">
+		<info compressed="false">http://mediarepos.net/jiberish/Repository/addons.xml</info>
+		<checksum>http://mediarepos.net/jiberish/Repository/addons.xml.md5</checksum>
+		<datadir zip="true">http://mediarepos.net/jiberish/Repository/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Home Of 3rd Party Addons </summary>
+		<description>Collosal Repository</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+<addon id="repository.kodil" name="[COLOR blue]Kodisrael[/COLOR][COLOR white]Repository[/COLOR]" version="1.2" provider-name="kodil">
+    <extension point="xbmc.addon.repository" name=".Kodisrael  Repository ">
+        <info compressed="false">https://raw.githubusercontent.com/kodil/kodil/master/addons.xml</info>
+        <checksum>http://www.lvtvv.com/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/kodil/kodil/master/repo</datadir>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary>Repositorio PMSF</summary>
-        <description>PMSF_HOME </description>
+        <summary>kodisrael repository</summary>
+        <description>kodisrael repository - the most extensive repository in israel </description>
+        <description></description>
         <platform>all</platform>
     </extension>
+</addon>
+<addon id="repository.pmsf" name="pmsf.Repo" version="1.1" provider-name="pmsf">
+	<extension point="xbmc.addon.repository" name="pmsf repo">
+		<info compressed="false">C:\Users\Telecof\Desktop\Meu Repositorio\PMSF\plugins\addons.xml</info>
+		<checksum>C:\Users\Telecof\Desktop\Meu Repositorio\PMSF\plugins\addons.xml.md5</checksum>
+		<datadir zip="true">C:\Users\Telecof\Desktop\Meu Repositorio\PMSF\plugins</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>pmsf Repo.</summary>
+		<description>pmsf.Repo</description>
+		<platform>all</platform>
+	</extension>
 </addon>
 </addons>
