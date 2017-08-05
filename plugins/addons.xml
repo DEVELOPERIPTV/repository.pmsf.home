@@ -172,7 +172,6 @@ em procura livre na internet.
     <import addon="script.module.simplejson" />    
      <import addon="script.module.livestreamer" optional="true"/>
 	 <import addon="script.module.pyamf" optional="true"/>
-     <import addon="repository.rato.tv" version="1.0"/>
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
     <provides>video</provides>
