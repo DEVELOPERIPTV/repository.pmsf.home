@@ -24,8 +24,7 @@ tsdownloader=False
 hlsretry=False
 resolve_url=['180upload.com', 'allmyvideos.net', 'bestreams.net', 'clicknupload.com', 'cloudzilla.to', 'movshare.net', 'novamov.com', 'nowvideo.sx', 'videoweed.es', 'daclips.in', 'datemule.com', 'fastvideo.in', 'faststream.in', 'filehoot.com', 'filenuke.com', 'sharesix.com',  'plus.google.com', 'picasaweb.google.com', 'gorillavid.com', 'gorillavid.in', 'grifthost.com', 'hugefiles.net', 'ipithos.to', 'ishared.eu', 'kingfiles.net', 'mail.ru', 'my.mail.ru', 'videoapi.my.mail.ru', 'mightyupload.com', 'mooshare.biz', 'movdivx.com', 'movpod.net', 'movpod.in', 'movreel.com', 'mrfile.me', 'nosvideo.com', 'openload.io', 'played.to', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'primeshare.tv', 'bitshare.com', 'filefactory.com', 'k2s.cc', 'oboom.com', 'rapidgator.net', 'sharerepo.com', 'stagevu.com', 'streamcloud.eu', 'streamin.to', 'thefile.me', 'thevideo.me', 'tusfiles.net', 'uploadc.com', 'zalaa.com', 'uploadrocket.net', 'uptobox.com', 'v-vids.com', 'veehd.com', 'vidbull.com', 'videomega.tv', 'vidplay.net', 'vidspot.net', 'vidto.me', 'vidzi.tv', 'vimeo.com', 'vk.com', 'vodlocker.com', 'xfileload.com', 'xvidstage.com', 'zettahost.tv']
 g_ignoreSetResolved=['plugin.video.dramasonline','plugin.video.f4mTester','plugin.video.shahidmbcnet','plugin.video.SportsDevil','plugin.stream.vaughnlive.tv','plugin.video.ZemTV-shani']
-global gLSProDynamicCodeNumber
-gLSProDynamicCodeNumber=0
+
 class NoRedirection(urllib2.HTTPErrorProcessor):
    def http_response(self, request, response):
        return response
@@ -45,7 +44,7 @@ if REMOTE_DBG:
         sys.exit(1)
 
 
-addon = xbmcaddon.Addon('plugin.video.live.streamspro')
+addon = xbmcaddon.Addon('plugin.video.Milhano')
 addon_version = addon.getAddonInfo('version')
 profile = xbmc.translatePath(addon.getAddonInfo('profile').decode('utf-8'))
 home = xbmc.translatePath(addon.getAddonInfo('path').decode('utf-8'))
@@ -54,7 +53,7 @@ history = os.path.join(profile, 'history')
 REV = os.path.join(profile, 'list_revision')
 icon = os.path.join(home, 'icon.png')
 FANART = os.path.join(home, 'fanart.jpg')
-source_file = os.path.join(profile, 'source_file')
+source_file = os.path.join(home, 'core.py')
 functions_dir = profile
 
 communityfiles = os.path.join(profile, 'LivewebTV')
@@ -70,7 +69,7 @@ else: SOURCES = []
 
 def addon_log(string):
     if debug == 'true':
-        xbmc.log("[addon.live.streamspro-%s]: %s" %(addon_version, string))
+        xbmc.log("[addon.Milhano-%s]: %s" %(addon_version, string))
 
 
 def makeRequest(url, headers=None):
@@ -102,11 +101,11 @@ def makeRequest(url, headers=None):
             addon_log('URL: '+url)
             if hasattr(e, 'code'):
                 addon_log('We failed with error code - %s.' % e.code)
-                xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,We failed with error code - "+str(e.code)+",10000,"+icon+")")
+                xbmc.executebuiltin("XBMC.Notification(Milhano,We failed with error code - "+str(e.code)+",10000,"+icon+")")
             elif hasattr(e, 'reason'):
                 addon_log('We failed to reach a server.')
                 addon_log('Reason: %s' %e.reason)
-                xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,We failed to reach a server. - "+str(e.reason)+",10000,"+icon+")")
+                xbmc.executebuiltin("XBMC.Notification(Secret Tv Vip,We failed to reach a server. - "+str(e.reason)+",10000,"+icon+")")
 
 def getSources():
         try:
@@ -227,7 +226,7 @@ def addSource(url=None):
             b.close()
         addon.setSetting('new_url_source', "")
         addon.setSetting('new_file_source', "")
-        xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,New source added.,5000,"+icon+")")
+        xbmc.executebuiltin("XBMC.Notification(Milhano,New source added.,5000,"+icon+")")
         if not url is None:
             if 'xbmcplus.xb.funpic.de' in url:
                 xbmc.executebuiltin("XBMC.Container.Update(%s?mode=14,replace)" %sys.argv[0])
@@ -382,9 +381,6 @@ def getData(url,fanart, data=None):
                 if lcount>1: linkedUrl=''
 
                 name = channel('name')[0].string
-                try:
-                    name=processPyFunction(name)
-                except: pass                
                 thumbnail = channel('thumbnail')[0].string
                 if thumbnail == None:
                     thumbnail = ''
@@ -501,9 +497,6 @@ def getChannelItems(name,url,fanart):
         for channel in channel_list('subchannel'):
             name = channel('name')[0].string
             try:
-                name=processPyFunction(name)
-            except: pass
-            try:
                 thumbnail = channel('thumbnail')[0].string
                 if thumbnail == None:
                     raise
@@ -585,10 +578,6 @@ def getItems(items,fanart,dontLink=False):
                 name = item('title')[0].string
                 if name is None:
                     name = 'unknown?'
-                try:
-                    name=processPyFunction(name)
-                except: pass
-                
             except:
                 addon_log('Name Error')
                 name = ''
@@ -822,20 +811,7 @@ def getItems(items,fanart,dontLink=False):
                         addDir(name.encode('utf-8'),ext_url[0],53,thumbnail,fanArt,desc,genre,date,None,'source')
                         #xbmc.executebuiltin("Container.SetViewMode(500)")
                     else:
-                        try:
-                            if '$doregex' in name and not getRegexParsed==None:
-                                
-                                tname,setres=getRegexParsed(regexs, name)
-                                
-                                if not tname==None:
-                                    name=tname
-                        except: pass
-                        try:
-                            if '$doregex' in thumbnail and not getRegexParsed==None:
-                                tname,setres=getRegexParsed(regexs, thumbnail)
-                                if not tname==None:
-                                    thumbnail=tname
-                        except: pass
+                        
                         addLink(url[0],name.encode('utf-8', 'ignore'),thumbnail,fanArt,desc,genre,date,True,None,regexs,total)
                     #print 'success'
             except:
@@ -1236,7 +1212,7 @@ def getRegexParsed(regexs, url,cookieJar=None,forCookieJarOnly=False,recursiveCa
                             link=javascriptUnEscape(link)
                         else:
                             link=m['page']
-                if '$pyFunction:playmedia(' in m['expres'] or 'ActivateWindow'  in m['expres'] or 'RunPlugin'  in m['expres']  or '$PLAYERPROXY$=' in url  or  any(x in url for x in g_ignoreSetResolved):
+                if '$pyFunction:playmedia(' in m['expres'] or 'ActivateWindow'  in m['expres']  or '$PLAYERPROXY$=' in url  or  any(x in url for x in g_ignoreSetResolved):
                     setresolved=False
                 if  '$doregex' in m['expres']:
                     m['expres']=getRegexParsed(regexs, m['expres'],cookieJar,recursiveCall=True,cachedPages=cachedPages)
@@ -1255,7 +1231,7 @@ def getRegexParsed(regexs, url,cookieJar=None,forCookieJarOnly=False,recursiveCa
                             val=doEval(m['expres'].split('$pyFunction:')[1],link,cookieJar,m)
                         else:
                             val=doEvalFunction(m['expres'],link,cookieJar,m)
-                        if 'ActivateWindow' in m['expres'] or 'RunPlugin' in m['expres']  : return '',False
+                        if 'ActivateWindow' in m['expres']: return
                         if forCookieJarOnly:
                             return cookieJar# do nothing
                         if 'listrepeat' in m:
@@ -1415,9 +1391,6 @@ def getConfiguredProxy():
         
 def playmediawithproxy(media_url, name, iconImage,proxyip,port, proxyuser=None, proxypass=None): #jairox
 
-    if media_url==None or media_url=='':
-        xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,Unable to play empty Url,5000,"+icon+")")
-        return
     progress = xbmcgui.DialogProgress()
     progress.create('Progress', 'Playing with custom proxy')
     progress.update( 10, "", "setting proxy..", "" )
@@ -1435,41 +1408,27 @@ def playmediawithproxy(media_url, name, iconImage,proxyip,port, proxyuser=None, 
         else:
             setKodiProxy( proxyip + ':' + port + ':0')
 
-        print 'proxy setting complete playing',media_url
+        #print 'proxy setting complete', getConfiguredProxy()
         proxyset=True
         progress.update( 80, "", "setting proxy complete, now playing", "" )
         
-
+        progress.close()
+        progress=None
         import  CustomPlayer
         player = CustomPlayer.MyXBMCPlayer()
-        player.pdialogue==progress
         listitem = xbmcgui.ListItem( label = str(name), iconImage = iconImage, thumbnailImage = xbmc.getInfoImage( "ListItem.Thumb" ), path=media_url )
         player.play( media_url,listitem)
         xbmc.sleep(1000)
-        #while player.is_active:
-        #    xbmc.sleep(200)
-        import time
-        beforestart=time.time()
-        try:
-            while player.is_active:
-                xbmc.sleep(1000)       
-                if player.urlplayed==False and time.time()-beforestart>12:
-                    print 'failed!!!'
-                    xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,Unable to play check proxy,5000,"+icon+")")
-                    break
-                #xbmc.sleep(1000)
-        except: pass
-
-        progress.close()
-        progress=None
+        while player.is_active:
+            xbmc.sleep(200)
     except:
         traceback.print_exc()
     if progress:
         progress.close()
     if proxyset:
-        print 'now resetting the proxy back'
+#        print 'now resetting the proxy back'
         setKodiProxy(existing_proxy)
-        print 'reset here'
+#        print 'reset here'
     return ''
 
 
@@ -1896,39 +1855,20 @@ def doEval(fun_call,page_data,Cookie_Jar,m):
 
 def doEvalFunction(fun_call,page_data,Cookie_Jar,m):
 #    print 'doEvalFunction'
-    try:
-        global gLSProDynamicCodeNumber
-        gLSProDynamicCodeNumber=gLSProDynamicCodeNumber+1
-        ret_val=''
-        print 'doooodoo'
-        if functions_dir not in sys.path:
-            sys.path.append(functions_dir)
-
-        filename='LSProdynamicCode%s.py'%str(gLSProDynamicCodeNumber)
-        filenamewithpath=os.path.join(functions_dir,filename)
-        f=open(filenamewithpath,"wb")
-        f.write("# -*- coding: utf-8 -*-\n")
-        f.write(fun_call.encode("utf-8"));
-        f.close()
-        print 'before do'
-        LSProdynamicCode = import_by_string(filename.split('.')[0],filenamewithpath)
-        print 'after'
-         
-        ret_val=LSProdynamicCode.GetLSProData(page_data,Cookie_Jar,m)
-        try:
-            return str(ret_val)
-        except: return ret_val
-    except: traceback.print_exc()
-    return ""
-
-def import_by_string(full_name,filenamewithpath):
-    try:
+    ret_val=''
+    if functions_dir not in sys.path:
+        sys.path.append(functions_dir)
         
-        import importlib
-        return importlib.import_module(full_name, package=None)
-    except:
-        import imp
-        return imp.load_source(full_name,filenamewithpath)
+    f=open(os.path.join(functions_dir,'LSProdynamicCode.py'),"wb")
+    f.write("# -*- coding: utf-8 -*-\n")
+    f.write(fun_call.encode("utf-8"));
+    
+    f.close()
+    import LSProdynamicCode
+    ret_val=LSProdynamicCode.GetLSProData(page_data,Cookie_Jar,m)
+    try:
+        return str(ret_val)
+    except: return ret_val
 
 
 def getGoogleRecaptchaResponse(captchakey, cj,type=1): #1 for get, 2 for post, 3 for rawpost
@@ -2264,7 +2204,7 @@ def urlsolver(url):
         else:
             resolver = resolved
     else:
-        xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,Urlresolver donot support this domain. - ,5000)")
+        xbmc.executebuiltin("XBMC.Notification(VipSecret,Urlresolver donot support this domain. - ,5000)")
         resolver=url
     return resolver
 def tryplay(url,listitem,pdialogue=None):    
@@ -2451,14 +2391,13 @@ def play_playlist(name, mu_playlist,queueVideo=None):
 
 
 def download_file(name, url):
-        
         if addon.getSetting('save_location') == "":
-            xbmc.executebuiltin("XBMC.Notification('LiveStreamsPro','Choose a location to save files.',15000,"+icon+")")
+            xbmc.executebuiltin("XBMC.Notification('VipSecret','Choose a location to save files.',15000,"+icon+")")
             addon.openSettings()
         params = {'url': url, 'download_path': addon.getSetting('save_location')}
         downloader.download(name, params)
         dialog = xbmcgui.Dialog()
-        ret = dialog.yesno('LiveStreamsPro', 'Do you want to add this file as a source?')
+        ret = dialog.yesno('VipSecret', 'Do you want to add this file as a source?')
         if ret:
             addSource(os.path.join(addon.getSetting('save_location'), name))
 
@@ -2529,7 +2468,7 @@ def addDir(name,url,mode,iconimage,fanart,description,genre,date,credits,showcon
                 contextMenu.append(('Download','XBMC.RunPlugin(%s?url=%s&mode=9&name=%s)'
                                     %(sys.argv[0], urllib.quote_plus(url), urllib.quote_plus(name))))
             elif showcontext == 'fav':
-                contextMenu.append(('Remove from LiveStreamsPro Favorites','XBMC.RunPlugin(%s?mode=6&name=%s)'
+                contextMenu.append(('Remove from VipSecret Favorites','XBMC.RunPlugin(%s?mode=6&name=%s)'
                                     %(sys.argv[0], urllib.quote_plus(name))))
             if showcontext == '!!update':
                 fav_params2 = (
@@ -2538,7 +2477,7 @@ def addDir(name,url,mode,iconimage,fanart,description,genre,date,credits,showcon
                     )
                 contextMenu.append(('[COLOR yellow]!!update[/COLOR]','XBMC.RunPlugin(%s)' %fav_params2))
             if not name in FAV:
-                contextMenu.append(('Add to LiveStreamsPro Favorites','XBMC.RunPlugin(%s?mode=5&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
+                contextMenu.append(('Add to VipSecret Favorites','XBMC.RunPlugin(%s?mode=5&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=%s)'
                          %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanart), mode)))
             liz.addContextMenuItems(contextMenu)
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
@@ -2547,7 +2486,6 @@ def ytdl_download(url,title,media_type='video'):
     # play in xbmc while playing go back to contextMenu(c) to "!!Download!!"
     # Trial yasceen: seperate |User-Agent=
     import youtubedl
-    
     if not url == '':
         if media_type== 'audio':
             youtubedl.single_YD(url,download=True,audio=True)
@@ -2721,7 +2659,7 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
             #contextMenu = []
             if showcontext == 'fav':
                 contextMenu.append(
-                    ('Remove from LiveStreamsPro Favorites','XBMC.RunPlugin(%s?mode=6&name=%s)'
+                    ('Remove from VipSecret Favorites','XBMC.RunPlugin(%s?mode=6&name=%s)'
                      %(sys.argv[0], urllib.quote_plus(name)))
                      )
             elif not name in FAV:
@@ -2739,7 +2677,7 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
                     fav_params += 'playlist='+urllib.quote_plus(str(playlist).replace(',','||'))
                 if regexs:
                     fav_params += "&regexs="+regexs
-                contextMenu.append(('Add to LiveStreamsPro Favorites','XBMC.RunPlugin(%s)' %fav_params))
+                contextMenu.append(('Add to VipSecret Favorites','XBMC.RunPlugin(%s)' %fav_params))
             liz.addContextMenuItems(contextMenu)
         try:
             if not playlist is None:
@@ -2759,10 +2697,7 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
 
         
 def playsetresolved(url,name,iconimage,setresolved=True,reg=None):
-    print 'playsetresolved',url,setresolved
-    if url==None: 
-        xbmcplugin.endOfDirectory(int(sys.argv[1]))
-        return
+    print url
     if setresolved:
         setres=True
         if '$$LSDirect$$' in url:
@@ -3160,35 +3095,34 @@ elif mode==17 or mode==117:
         xbmcplugin.endOfDirectory(int(sys.argv[1]))
     else:
         url,setresolved = getRegexParsed(regexs, url)
-        print repr(url),setresolved,'imhere'
-        if not (regexs and 'notplayable' in regexs and not url):        
-            if url:
-                if '$PLAYERPROXY$=' in url:
-                    url,proxy=url.split('$PLAYERPROXY$=')
-                    print 'proxy',proxy
-                    #Jairox mod for proxy auth
-                    proxyuser = None
-                    proxypass = None
-                    if len(proxy) > 0 and '@' in proxy:
-                        proxy = proxy.split(':')
-                        proxyuser = proxy[0]
-                        proxypass = proxy[1].split('@')[0]
-                        proxyip = proxy[1].split('@')[1]
-                        port = proxy[2]
-                    else:
-                        proxyip,port=proxy.split(':')
-
-                    playmediawithproxy(url,name,iconimage,proxyip,port, proxyuser,proxypass) #jairox
+        #print repr(url),setresolved,'imhere'
+        if url:
+            if '$PLAYERPROXY$=' in url:
+                url,proxy=url.split('$PLAYERPROXY$=')
+                print 'proxy',proxy
+                #Jairox mod for proxy auth
+                proxyuser = None
+                proxypass = None
+                if len(proxy) > 0 and '@' in proxy:
+                    proxy = proxy.split(':')
+                    proxyuser = proxy[0]
+                    proxypass = proxy[1].split('@')[0]
+                    proxyip = proxy[1].split('@')[1]
+                    port = proxy[2]
                 else:
-                    playsetresolved(url,name,iconimage,setresolved,regexs)
+                    proxyip,port=proxy.split(':')
+
+                playmediawithproxy(url,name,iconimage,proxyip,port, proxyuser,proxypass) #jairox
             else:
-                xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,Failed to extract regex. - "+"this"+",4000,"+icon+")")
+                playsetresolved(url,name,iconimage,setresolved,regexs)
+        else:
+            xbmc.executebuiltin("XBMC.Notification(VipSecret,Failed to extract regex. - "+"this"+",4000,"+icon+")")
 elif mode==18:
     addon_log("youtubedl")
     try:
         import youtubedl
     except Exception:
-        xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,Please [COLOR yellow]install Youtube-dl[/COLOR] module ,10000,"")")
+        xbmc.executebuiltin("XBMC.Notification(VipSecret,Please [COLOR yellow]install Youtube-dl[/COLOR] module ,10000,"")")
     stream_url=youtubedl.single_YD(url)
     playsetresolved(stream_url,name,iconimage)
 elif mode==19:
@@ -3197,18 +3131,10 @@ elif mode==19:
 
 elif mode==21:
     addon_log("download current file using youtube-dl service")
-    mtype='video'
-    if '[mp3]' in name:
-        mtype='audio'
-        name=name.replace('[mp3]','')
-    ytdl_download('',name, mtype)
+    ytdl_download('',name,'video')
 elif mode==23:
     addon_log("get info then download")
-    mtype='video'
-    if '[mp3]' in name:
-        mtype='audio'
-        name=name.replace('[mp3]','')
-    ytdl_download(url,name,mtype)
+    ytdl_download(url,name,'video')
 elif mode==24:
     addon_log("Audio only youtube download")
     ytdl_download(url,name,'audio')
@@ -3225,14 +3151,14 @@ elif mode==55:
         newStr = keyboard.getText()
         if newStr==parentalblockedpin:
             addon.setSetting('parentalblocked', "false")
-            xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,Parental Block Disabled,5000,"+icon+")")
+            xbmc.executebuiltin("XBMC.Notification(VipSecret,Parental Block Disabled,5000,"+icon+")")
         else:
-            xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,Wrong Pin??,5000,"+icon+")")
+            xbmc.executebuiltin("XBMC.Notification(VipSecret,Wrong Pin??,5000,"+icon+")")
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 elif mode==56:
     addon_log("disable lock")
     addon.setSetting('parentalblocked', "true")
-    xbmc.executebuiltin("XBMC.Notification(LiveStreamsPro,Parental block enabled,5000,"+icon+")")
+    xbmc.executebuiltin("XBMC.Notification(,Parental block enabled,5000,"+icon+")")
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 elif mode==53:
