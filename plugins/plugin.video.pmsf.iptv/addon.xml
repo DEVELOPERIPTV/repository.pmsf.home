@@ -8,7 +8,7 @@
     <import addon="script.module.beautifulsoup" version="3.2.1"/>
 	<import addon="repository.kodil" version="1.2"/>
 	<import addon="repository.colossus" version="999.999.1"/>
-	<import addon="repo.familia" version="0.0.2"/>
+	<import addon="repositorio.familiaiptv" version="0.0.2"/>
 	<import addon="repository.elysium" version="2017.06.10"/>
 	<import addon="repository.pancas" version="1.0.6"/>
 	<import addon="repository.pmsf" version="1.3"/>
