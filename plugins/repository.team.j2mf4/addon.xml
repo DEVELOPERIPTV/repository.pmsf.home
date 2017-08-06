@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.team.j2mf4" name="Repositorio Team J2MF4" version="1.0.1" provider-name="Team J2MF4">
+    <extension point="xbmc.addon.repository" name="Repositorio Team J2MF4 ">
+        <info compressed="false">http://repositorio.j2mf4.com/repo/addons.xml</info>
+        <checksum>http://repositorio.j2mf4.com/repo/addons.xml.md5</checksum>
+        <datadir zip="true">http://repositorio.j2mf4.com/repo/zip</datadir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>http://forum.j2mf4.com repository</summary>
+        <description>Team J2MF4 offical repository </description>
+        <platform>all</platform>
+    </extension>
+</addon>
